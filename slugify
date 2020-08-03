@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+usage="$(basename "$0") [-h] <string> -- slugify any string
+
+where:
+    -h  show this help text
+"
+
+usage="$(basename "$0") OPTIONS <string> -- slugify any string
+
+OPTIONS:
+    -h          Show this help message
+
+FUNCTION:
+    string      Any string you want to slugify
+"
+usage() {
+    echo "$usage"
+    exit 1
+}
+
+while getopts ':h' option; do
+    case "$option" in
+        h) usage;;
+        \?) printf "illegal option: -%s\n" "$OPTARG" >&2; usage;;
+    esac
+done
+
+if [ $# -ne 1 ]; then printf "$usage"; exit; fi
+shift $((OPTIND - 1))
+
+#
+
+echo "$1" | iconv -t ascii//TRANSLIT | sed -E s/[^a-zA-Z0-9]+/-/g | sed -E s/^-+\|-+$//g | tr A-Z a-z | awk 'i=toupper(substr($1,1,2)) substr(i,3)'
+exit 0
