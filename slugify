@@ -31,4 +31,4 @@ shift $((OPTIND - 1))
 #
 
 echo "$1" | iconv -t ascii//TRANSLIT | sed -E s/[^a-zA-Z0-9]+/-/g | sed -E s/^-+\|-+$//g | tr A-Z a-z | awk 'i=toupper(substr($1,1,2)) substr(i,3)'
-exit 0
+exit $?
