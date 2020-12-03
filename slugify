@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
-usage="$(basename "$0") [-h] <string> -- slugify any string
-
-where:
-    -h  show this help text
-"
+set -euo pipefail
 
 usage="$(basename "$0") OPTIONS <string> -- slugify any string
 
